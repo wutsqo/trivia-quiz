@@ -25,7 +25,7 @@ export const SummarySection: FC<Props> = ({ questions }) => {
       </Card>
       <Card>
         <CardContent className="flex flex-col w-full gap-4">
-          <h1 className="text-center text-2xl">Here's your summary:</h1>
+          <h1 className="text-center text-2xl">Here`&apos;s your summary:</h1>
           {questions.map((question, index) => {
             const userAnswer = userAnswers[index];
             const isCorrect = userAnswer === question.correct_answer;
