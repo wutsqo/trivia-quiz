@@ -23,7 +23,7 @@ async function fetchTriviaCategories() {
 export default async function Home() {
   const categories = await fetchTriviaCategories();
   return (
-    <div>
+    <div className="p-4">
       <Card className="container max-w-screen-lg mx-auto">
         <CardHeader>
           <h1 className="text-4xl text-center">Welcome to the Trivia Game App</h1>
@@ -34,9 +34,9 @@ export default async function Home() {
             <div className="w-full max-w-md mx-auto flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <h2 className="text-2xl">Select Difficulty</h2>
-                <Select defaultValue={difficultyLevels[0].value} name="difficulty">
+                <Select defaultValue={difficultyLevels[0].value} name="difficulty" required>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Any Difficulty" />
+                    <SelectValue placeholder="Pick a Difficulty" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
@@ -51,13 +51,12 @@ export default async function Home() {
               </div>
               <div className="flex flex-col gap-2">
                 <h2 className="text-2xl">Select Category</h2>
-                <Select defaultValue="" name="category">
+                <Select name="category" required defaultValue={categories[0].id.toString()}>
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Any Category" />
+                    <SelectValue placeholder="Pick a Category" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="any">Any Category</SelectItem>
                       {categories.map((category) => (
                         <SelectItem key={category.id} value={category.id.toString()}>
                           {category.name}
