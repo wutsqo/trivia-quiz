@@ -4,19 +4,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { difficultyLevels } from "@/lib/trivia";
 import Form from "next/form";
 import { StartButton } from "@/components/welcome/start-button";
-
-async function fetchTriviaCategories() {
-  const response = await fetch("https://opentdb.com/api_category.php", {
-    next: { revalidate: 60 },
-  });
-  if (!response.ok) {
-    throw new Error("Failed to fetch trivia categories");
-  }
-  const data = (await response.json()) as {
-    trivia_categories: { id: number; name: string }[];
-  };
-  return data.trivia_categories;
-}
+import { fetchTriviaCategories } from "./services";
 
 export default async function Home() {
   const categories = await fetchTriviaCategories();

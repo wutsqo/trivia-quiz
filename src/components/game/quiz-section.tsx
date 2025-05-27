@@ -1,5 +1,5 @@
 import { Question } from "@/app/game/interface";
-import { useGameStore } from "@/lib/game-store";
+
 import { FC, useState } from "react";
 import he from "he";
 import { toast } from "sonner";
@@ -7,13 +7,15 @@ import { Card, CardContent } from "../ui/card";
 import { Progress } from "../ui/progress";
 import Star15 from "../stars/s15";
 import { Button } from "../ui/button";
+import { useGameStore } from "@/providers/game-store-provider";
 
 interface Props {
   questions: Question[];
 }
 
 export const QuizSection: FC<Props> = ({ questions }) => {
-  const { currentQuestionIndex, userScore, goToNextQuestion } = useGameStore();
+  const { currentQuestionIndex, userScore, answerAndGoToNextQuestion } = useGameStore((state) => state);
+  console.log("🚀 ~ currentQuestionIndex:", currentQuestionIndex)
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -28,7 +30,7 @@ export const QuizSection: FC<Props> = ({ questions }) => {
       toast.error("Ooops, Wrong answer!");
     }
     setTimeout(() => {
-      goToNextQuestion({
+      answerAndGoToNextQuestion({
         prevAnswer: option,
         point: isCorrect ? 10 : 0,
       });
