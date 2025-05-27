@@ -15,9 +15,7 @@ interface Props {
 
 export const QuizSection: FC<Props> = ({ questions }) => {
   const { currentQuestionIndex, userScore, answerAndGoToNextQuestion } = useGameStore((state) => state);
-  console.log("🚀 ~ currentQuestionIndex:", currentQuestionIndex)
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
   const currentQuestion = questions[currentQuestionIndex];
   const decodedQuestion = he.decode(currentQuestion.question);
 
