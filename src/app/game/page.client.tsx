@@ -42,10 +42,10 @@ export const ClientGamePage: FC<Props> = ({ questions }) => {
     return "neutral";
   };
   return (
-    <div className="container max-w-screen-lg mx-auto pt-16 flex flex-col gap-8">
+    <div className="container max-w-screen-lg mx-auto flex flex-col gap-4">
       <Card>
         <CardContent className="flex flex-row w-full items-center gap-8">
-          <div className="w-24 shrink-0">
+          <div className="w-20 shrink-0">
             <div>Score: {userScore}</div>
           </div>
           <div className="w-full">
@@ -57,14 +57,14 @@ export const ClientGamePage: FC<Props> = ({ questions }) => {
         <Card>
           <CardContent className="flex flex-col w-full gap-8">
             <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
-              <div className="relative h-32 w-32 flex items-center justify-center shrink-0">
+              <div className="relative h-32 w-32 items-center justify-center shrink-0 hidden lg:flex">
                 <Star15 color="white" size={96} stroke="black" strokeWidth={4} className="absolute z-0" />
                 <div className="relative z-10 text-3xl">{currentQuestionIndex + 1}</div>
               </div>
-              <h2 className="text-2xl w-full">{decodedQuestion}</h2>
+              <h2 className="text-xl lg:text-2xl w-full">{decodedQuestion}</h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {currentQuestion.options.map((option, index) => (
                 <Button
                   key={index}

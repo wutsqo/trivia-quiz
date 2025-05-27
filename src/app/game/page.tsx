@@ -10,5 +10,9 @@ export default async function GamePage({ searchParams }: { searchParams: Promise
   const params = await searchParams;
   const questions = await getGameQuestions(params);
 
-  return <ClientGamePage questions={questions} />;
+  return (
+    <div className="p-4">
+      <ClientGamePage questions={questions} />
+    </div>
+  );
 }
