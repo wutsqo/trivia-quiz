@@ -33,7 +33,7 @@ export const QuizSection: FC<QuizSectionProps> = ({ questions }) => {
         selectedAnswer: option,
       });
       setSelectedOption(null);
-    }, 3000);
+    }, 4000);
   };
   const getButtonVariant = (option: string) => {
     if (selectedOption === null) return "neutral";
