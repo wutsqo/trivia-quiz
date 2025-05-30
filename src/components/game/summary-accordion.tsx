@@ -3,6 +3,7 @@ import { FC } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import he from "he";
 import { useGameStore } from "@/providers/game-store-provider";
+import { cn } from "@/lib/utils";
 
 interface SummaryAccordionProps {
   questionIndex: number;
@@ -16,7 +17,7 @@ export const SummaryAccordion: FC<SummaryAccordionProps> = ({ question, question
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value={`item-${questionIndex}`}>
-        <AccordionTrigger className="text-lg font-semibold">{he.decode(question.question)}</AccordionTrigger>
+        <AccordionTrigger className={cn("text-lg font-semibold", !isCorrect && "bg-red-300")}>{he.decode(question.question)}</AccordionTrigger>
         <AccordionContent>
           <p className="mb-2">Your answer: {userAnswer}</p>
           <p className="mb-2">Correct answer: {question.correct_answer}</p>
