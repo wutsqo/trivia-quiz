@@ -1,5 +1,4 @@
-import { Question } from "@/app/game/interface";
-
+import { Question } from "@/services/interface";
 import { FC, useState } from "react";
 import he from "he";
 import { toast } from "sonner";

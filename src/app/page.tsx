@@ -4,10 +4,10 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { difficultyLevels } from "@/lib/trivia";
 import Form from "next/form";
 import { StartButton } from "@/components/welcome/start-button";
-import { fetchTriviaCategories } from "./services";
+import { getTriviaCategories } from "@/services";
 
 export default async function Home() {
-  const categories = await fetchTriviaCategories();
+  const categories = await getTriviaCategories();
   return (
     <div className="p-4">
       <Card className="container max-w-screen-lg mx-auto">

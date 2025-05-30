@@ -1,7 +1,7 @@
 "use client";
 
 import { FC } from "react";
-import { Question } from "./interface";
+import { Question } from "../../services/interface";
 import { QuizSection } from "@/components/game/quiz-section";
 import { useGameStore } from "@/providers/game-store-provider";
 import { SummarySection } from "@/components/game/summary-section";

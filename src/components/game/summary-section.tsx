@@ -1,4 +1,4 @@
-import { Question } from "@/app/game/interface";
+import { Question } from "@/services/interface";
 import { useGameStore } from "@/providers/game-store-provider";
 import { FC } from "react";
 import { Card, CardContent } from "../ui/card";

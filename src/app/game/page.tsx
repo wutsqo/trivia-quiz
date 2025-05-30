@@ -1,4 +1,4 @@
-import { getGameQuestions } from "./services";
+import { getGameQuestions } from "../../services";
 import { ClientGamePage } from "./page.client";
 
 type SearchParams = {

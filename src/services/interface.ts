@@ -1,3 +1,8 @@
+export interface GetGameQuestionsParams {
+  difficulty?: string;
+  category?: string;
+}
+
 export interface APIResponse {
   response_code: number;
   results: {
@@ -14,4 +19,9 @@ export interface Question {
   question: string;
   correct_answer: string;
   options: string[];
+}
+
+export interface TriviaCategory {
+  id: number;
+  name: string;
 }
