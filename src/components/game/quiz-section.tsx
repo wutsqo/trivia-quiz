@@ -4,15 +4,15 @@ import he from "he";
 import { toast } from "sonner";
 import { Card, CardContent } from "../ui/card";
 import { Progress } from "../ui/progress";
-import Star15 from "../stars/s15";
+import Star15 from "../ui/stars/s15";
 import { Button } from "../ui/button";
 import { useGameStore } from "@/providers/game-store-provider";
 
-interface Props {
+interface QuizSectionProps {
   questions: Question[];
 }
 
-export const QuizSection: FC<Props> = ({ questions }) => {
+export const QuizSection: FC<QuizSectionProps> = ({ questions }) => {
   const { currentQuestionIndex, userScore, answerAndGoToNextQuestion } = useGameStore((state) => state);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const currentQuestion = questions[currentQuestionIndex];
@@ -48,7 +48,7 @@ export const QuizSection: FC<Props> = ({ questions }) => {
             <div>Score: {userScore}</div>
           </div>
           <div className="w-full">
-            <Progress value={currentQuestionIndex * 10 + 10} />
+            <Progress value={currentQuestionIndex * 10 + 5} />
           </div>
         </CardContent>
       </Card>
@@ -64,9 +64,9 @@ export const QuizSection: FC<Props> = ({ questions }) => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {currentQuestion.options.map((option, index) => (
+            {currentQuestion.options.map((option) => (
               <Button
-                key={index}
+                key={`${currentQuestionIndex}${option}`}
                 className="text-lg break-words whitespace-normal"
                 size="xl"
                 type="button"

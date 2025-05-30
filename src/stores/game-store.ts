@@ -8,6 +8,7 @@ export type GameState = {
 
 export type GameActions = {
   answerAndGoToNextQuestion: (args: { prevAnswer: string; point?: number }) => void;
+  reset: () => void;
 };
 
 export type GameStore = GameState & GameActions;
@@ -26,6 +27,12 @@ export const createGameStore = (initialState: GameState = defaultInitialState) =
         userAnswers: [...state.userAnswers, prevAnswer],
         userScore: state.userScore + point,
         currentQuestionIndex: state.currentQuestionIndex + 1,
+      })),
+    reset: () =>
+      set(() => ({
+        userAnswers: [],
+        userScore: 0,
+        currentQuestionIndex: 0,
       })),
   }));
 };

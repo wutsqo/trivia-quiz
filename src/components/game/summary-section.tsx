@@ -2,15 +2,14 @@ import { Question } from "@/services/interface";
 import { useGameStore } from "@/providers/game-store-provider";
 import { FC } from "react";
 import { Card, CardContent } from "../ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
-import he from "he";
+import { SummaryAccordion } from "./summary-accordion";
 
 interface Props {
   questions: Question[];
 }
 
 export const SummarySection: FC<Props> = ({ questions }) => {
-  const { userScore, userAnswers } = useGameStore((state) => state);
+  const { userScore } = useGameStore((state) => state);
 
   return (
     <div className="container max-w-screen-lg mx-auto flex flex-col gap-4">
@@ -25,23 +24,10 @@ export const SummarySection: FC<Props> = ({ questions }) => {
       </Card>
       <Card>
         <CardContent className="flex flex-col w-full gap-4">
-          <h1 className="text-center text-2xl">Here`&apos;s your summary:</h1>
-          {questions.map((question, index) => {
-            const userAnswer = userAnswers[index];
-            const isCorrect = userAnswer === question.correct_answer;
-            return (
-              <Accordion type="single" collapsible className="w-full" key={index}>
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-lg font-semibold">{he.decode(question.question)}</AccordionTrigger>
-                  <AccordionContent>
-                    <p className="mb-2">Your answer: {userAnswer}</p>
-                    <p className="mb-2">Correct answer: {question.correct_answer}</p>
-                    {!isCorrect && <p className="text-red-500">You missed this question.</p>}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            );
-          })}
+          <h1 className="text-center text-2xl">Here&apos;s your summary:</h1>
+          {questions.map((question, index) => (
+            <SummaryAccordion questionIndex={index} question={question} key={question.question} />
+          ))}
         </CardContent>
       </Card>
     </div>
