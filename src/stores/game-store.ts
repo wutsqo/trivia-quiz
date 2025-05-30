@@ -1,13 +1,19 @@
 import { createStore } from "zustand/vanilla";
 
+export type UserAnswer = {
+  question: string;
+  selectedAnswer: string;
+  correctAnswer: string;
+};
+
 export type GameState = {
   currentQuestionIndex: number;
   userScore: number;
-  userAnswers: string[];
+  userAnswers: UserAnswer[];
 };
 
 export type GameActions = {
-  answerAndGoToNextQuestion: (args: { prevAnswer: string; point?: number }) => void;
+  answerAndGoToNextQuestion: (userAnswer: UserAnswer) => void;
   reset: () => void;
 };
 
@@ -22,12 +28,14 @@ export const defaultInitialState: GameState = {
 export const createGameStore = (initialState: GameState = defaultInitialState) => {
   return createStore<GameStore>()((set) => ({
     ...initialState,
-    answerAndGoToNextQuestion: ({ prevAnswer, point = 0 }) =>
+    answerAndGoToNextQuestion: (userAnswer) => {
+      const point = userAnswer.correctAnswer === userAnswer.selectedAnswer ? 10 : 0;
       set((state) => ({
-        userAnswers: [...state.userAnswers, prevAnswer],
+        userAnswers: [...state.userAnswers, userAnswer],
         userScore: state.userScore + point,
         currentQuestionIndex: state.currentQuestionIndex + 1,
-      })),
+      }));
+    },
     reset: () =>
       set(() => ({
         userAnswers: [],

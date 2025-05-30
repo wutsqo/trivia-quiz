@@ -26,7 +26,7 @@ export const SummarySection: FC<Props> = ({ questions }) => {
         <CardContent className="flex flex-col w-full gap-4">
           <h1 className="text-center text-2xl">Here&apos;s your summary:</h1>
           {questions.map((question, index) => (
-            <SummaryAccordion questionIndex={index} question={question} key={question.question} />
+            <SummaryAccordion questionIndex={index} key={question.question} />
           ))}
         </CardContent>
       </Card>

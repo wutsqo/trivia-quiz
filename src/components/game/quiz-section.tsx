@@ -24,12 +24,13 @@ export const QuizSection: FC<QuizSectionProps> = ({ questions }) => {
     if (isCorrect) {
       toast.success("Correct answer! You got 10 points!");
     } else {
-      toast.error("Ooops, Wrong answer!");
+      toast.error(`Ooops, Wrong answer!`);
     }
     setTimeout(() => {
       answerAndGoToNextQuestion({
-        prevAnswer: option,
-        point: isCorrect ? 10 : 0,
+        question: currentQuestion.question,
+        correctAnswer: currentQuestion.correct_answer,
+        selectedAnswer: option,
       });
       setSelectedOption(null);
     }, 3000);

@@ -1,4 +1,4 @@
-import { createGameStore, defaultInitialState } from "./game-store";
+import { createGameStore } from "./game-store";
 
 describe("GameStore", () => {
   let store: ReturnType<typeof createGameStore>;
@@ -7,58 +7,36 @@ describe("GameStore", () => {
     store = createGameStore();
   });
 
-  test("should initialize with default state", () => {
-    expect(store.getState()).toEqual({
-      ...defaultInitialState,
-      answerAndGoToNextQuestion: expect.any(Function),
-    });
-  });
-
-  test("should initialize with custom state", () => {
-    const customState = {
-      currentQuestionIndex: 2,
-      userScore: 10,
-      userAnswers: ["a", "b"],
+  test("answering one correct question", () => {
+    const userAnswer = {
+      correctAnswer: "Kucing",
+      question: "Yang benar kucing",
+      selectedAnswer: "Kucing",
     };
-    store = createGameStore(customState);
-    expect(store.getState()).toEqual({
-      ...customState,
-      answerAndGoToNextQuestion: expect.any(Function),
-    });
+    store.getState().answerAndGoToNextQuestion(userAnswer);
+
+    expect(store.getState().currentQuestionIndex).toEqual(1);
+    expect(store.getState().userAnswers).toEqual([userAnswer]);
+    expect(store.getState().userScore).toEqual(10);
   });
 
-  test("answerAndGoToNextQuestion should update state correctly", () => {
-    store.getState().answerAndGoToNextQuestion({ prevAnswer: "test", point: 1 });
-
-    expect(store.getState()).toEqual({
-      currentQuestionIndex: 1,
-      userScore: 1,
-      userAnswers: ["test"],
-      answerAndGoToNextQuestion: expect.any(Function),
-    });
-  });
-
-  test("answerAndGoToNextQuestion should work with default point value", () => {
-    store.getState().answerAndGoToNextQuestion({ prevAnswer: "test" });
-
-    expect(store.getState()).toEqual({
-      currentQuestionIndex: 1,
-      userScore: 0,
-      userAnswers: ["test"],
-      answerAndGoToNextQuestion: expect.any(Function),
-    });
-  });
-
-  test("answerAndGoToNextQuestion should accumulate multiple answers", () => {
+  test("answering one correct and one false question", () => {
     const state = store.getState();
-    state.answerAndGoToNextQuestion({ prevAnswer: "answer1", point: 1 });
-    state.answerAndGoToNextQuestion({ prevAnswer: "answer2", point: 2 });
+    const userAnswer1 = {
+      correctAnswer: "Kucing",
+      question: "Yang ini benar",
+      selectedAnswer: "Kucing",
+    };
+    const userAnswer2 = {
+      correctAnswer: "Kucing",
+      question: "Yang ini salah",
+      selectedAnswer: "Anjing",
+    };
+    state.answerAndGoToNextQuestion(userAnswer1);
+    state.answerAndGoToNextQuestion(userAnswer2);
 
-    expect(store.getState()).toEqual({
-      currentQuestionIndex: 2,
-      userScore: 3,
-      userAnswers: ["answer1", "answer2"],
-      answerAndGoToNextQuestion: expect.any(Function),
-    });
+    expect(store.getState().currentQuestionIndex).toEqual(2);
+    expect(store.getState().userAnswers).toEqual([userAnswer1, userAnswer2]);
+    expect(store.getState().userScore).toEqual(10);
   });
 });
